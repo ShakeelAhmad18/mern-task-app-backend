@@ -1,40 +1,40 @@
-const dotenv=require('dotenv').config()
-const express=require('express')
-const mongoose=require('mongoose')
-const task = require('./model/taskModel')
+const dotenv = require('dotenv').config()
+const express = require('express')
+const mongoose = require('mongoose')
+const task = require('./models/taskModel')
 //const connectDB=require('./config/connectDB')
-const taskRoutes =require('./routes/taskRoute')
+const taskRoutes = require('./routes/taskRoute')
 
-const app=express()
+const app = express()
 
-const PORT=process.env.PORT || 5000
+const PORT = process.env.PORT || 5000
 
 //middleware
 
 app.use(express.json())
-app.use(express.urlencoded({extended:false}))
-app.use(taskRoutes)
+app.use(express.urlencoded({ extended: false }))
+app.use("/api/task",taskRoutes)
 
 //const logger=(req,res)=>{
- //  console.log('The middleware')
+//  console.log('The middleware')
 //}
 
 
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.send('Home Page')
 })
 
 
-mongoose.connect(process.env.MONGO_URI).then(()=>{
-    app.listen(PORT,()=>{
+mongoose.connect(process.env.MONGO_URI).then(() => {
+    app.listen(PORT, () => {
         console.log(`Server is running on ${PORT}`)
     })
-}).catch((err)=>console.log(err))
+}).catch((err) => console.log(err))
 
 
 
 
- 
+
 
 {/*const startServer=async ()=>{
    await connectDB();
